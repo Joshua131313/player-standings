@@ -16,7 +16,16 @@ export type PlayerRankingRow = {
   losses: number;
   winRate: number;
 };
-
+export interface Player {
+  id: string;
+  name: string;
+  avatar: string;
+  matchesPlayed: number;
+  wins: number;
+  losses: number;
+  winRate: number;
+  streak: number;
+}
 type SortKey = "rank" | "name" | "matches" | "wins" | "winRate";
 type SortDirection = "asc" | "desc";
 

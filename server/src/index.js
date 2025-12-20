@@ -1,11 +1,11 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
+import jwt from "jsonwebtoken";
 
 import { connectDB } from "./db.js";
 import playersRouter from "./routes/players.js";
 import matchupsRouter from "./routes/matchups.js";
-import jwt from "jsonwebtoken";
 import authRoutes from "./routes/auth.js";
 import adminRoutes from "./routes/admin.js";
 
@@ -17,8 +17,9 @@ export function requireAdminJWT(req, res, next) {
 
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    if (payload?.role !== "admin") return res.status(403).json({ error: "Forbidden" });
-
+    if (payload?.role !== "admin") {
+      return res.status(403).json({ error: "Forbidden" });
+    }
     req.user = payload;
     return next();
   } catch {
