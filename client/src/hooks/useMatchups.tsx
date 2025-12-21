@@ -1,12 +1,13 @@
-import { Armies } from "@/data/armies";
 import { useEffect, useMemo, useState } from "react";
+import { apiFetch } from "@/lib/api";
+import { Armies } from "@/data/armies";
 
 export type PopulatedPlayer = { _id: string; name: string };
 export type PlayerRef = string | PopulatedPlayer;
 
 export type TeamPlayer = {
   playerId: PlayerRef;
-  army: Armies; // your army/faction id (from armies array)
+  army: Armies;
 };
 
 export type Team = {
@@ -17,7 +18,7 @@ export type Team = {
 
 export type Matchup = {
   _id: string;
-  playedAt: string; // ISO date
+  playedAt: string;
   mode: "1v1" | "2v2" | "3v3";
   map: string;
   teams: Team[];
@@ -32,37 +33,25 @@ export type Matchup = {
 
 export const useMatchups = () => {
   const [matchups, setMatchups] = useState<Matchup[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   const reload = async () => {
-    setError("");
-    setLoading(true);
-
-    const controller = new AbortController();
     try {
-      const res = await fetch("/api/matchups", { signal: controller.signal });
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data?.error || "Failed to load matchups");
-        setMatchups([]);
-        return;
-      }
-
+      setLoading(true);
+      setError("");
+      const data = await apiFetch<Matchup[]>("/api/matchups");
       setMatchups(Array.isArray(data) ? data : []);
     } catch (e: any) {
-      if (e?.name !== "AbortError") setError(e?.message || "Network error");
+      setError(e?.message || "Failed to load matchups");
+      setMatchups([]);
     } finally {
       setLoading(false);
     }
-
-    return () => controller.abort();
   };
 
   useEffect(() => {
     void reload();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const byMostRecent = useMemo(() => {
