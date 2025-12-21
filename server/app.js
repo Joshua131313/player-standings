@@ -5,9 +5,9 @@ import "dotenv/config";
 import { connectDB } from "./src/db.js";
 import playersRouter from "./src/routes/players.js";
 import matchupsRouter from "./src/routes/matchups.js";
+import jwt from "jsonwebtoken";
 import authRoutes from "./src/routes/auth.js";
 import adminRoutes from "./src/routes/admin.js";
-import jwt from "jsonwebtoken";
 
 export function requireAdminJWT(req, res, next) {
   const header = req.headers.authorization || "";
@@ -31,22 +31,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// health
-app.get("/api/health", (_req, res) => res.json({ ok: true }));
+await connectDB();
 
-// ✅ IMPORTANT: mount with /api prefix because frontend calls /api/...
-app.use("/api/players", playersRouter);
-app.use("/api/matchups", matchupsRouter);
-app.use("/api/auth", authRoutes);
-app.use("/api/admin", adminRoutes);
+app.get("/health", (_req, res) => res.json({ ok: true }));
 
-// Export the express app (Vercel will call it like a handler)
-export default app;
+app.use("/players", playersRouter);
+app.use("/matchups", matchupsRouter);
+app.use("/auth", authRoutes);
+app.use("/admin", adminRoutes);
 
-// DB init (called once per cold start)
-let dbReady = false;
-export async function init() {
-  if (dbReady) return;
-  await connectDB();
-  dbReady = true;
-}
+const port = process.env.PORT || 4000;
+app.listen(port, () => {
+  console.log(`✅ API running on http://localhost:${port}`);
+});
