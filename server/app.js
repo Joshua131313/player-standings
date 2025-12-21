@@ -2,12 +2,12 @@ import express from "express";
 import cors from "cors";
 import "dotenv/config";
 
-import { connectDB } from "./db.js";
-import playersRouter from "./routes/players.js";
-import matchupsRouter from "./routes/matchups.js";
+import { connectDB } from "./src/db.js";
+import playersRouter from "./src/routes/players.js";
+import matchupsRouter from "./src/routes/matchups.js";
 import jwt from "jsonwebtoken";
-import authRoutes from "./routes/auth.js";
-import adminRoutes from "./routes/admin.js";
+import authRoutes from "./src/routes/auth.js";
+import adminRoutes from "./src/routes/admin.js";
 
 export function requireAdminJWT(req, res, next) {
   const header = req.headers.authorization || "";
