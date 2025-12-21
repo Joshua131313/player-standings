@@ -1,46 +1,47 @@
 import { authStorage } from "@/auth/auth";
 
-const API_BASE =
-  (import.meta as any).env?.VITE_API_BASE_URL?.trim() || "";
+const RAW_BASE = (import.meta as any).env?.VITE_API_BASE_URL?.trim() || "";
+const API_BASE = RAW_BASE.endsWith("/") ? RAW_BASE.slice(0, -1) : RAW_BASE;
 
-function joinUrl(base: string, path: string) {
-  if (!base) return path; // dev: "/api/players"
-  const b = base.endsWith("/") ? base.slice(0, -1) : base;
-  const p = path.startsWith("/") ? path : `/${path}`;
-  return `${b}${p}`;
+function buildUrl(path: string) {
+  // DEV: keep /api so Vite proxy works
+  if (!API_BASE) return path;
+
+  // PROD: your server does NOT have /api prefix
+  const fixedPath = path.replace(/^\/api\b/, "");
+  return `${API_BASE}${fixedPath.startsWith("/") ? "" : "/"}${fixedPath}`;
 }
 
 export async function apiFetch<T = any>(path: string, init: RequestInit = {}): Promise<T> {
   const token = authStorage.getToken();
   const headers = new Headers(init.headers || {});
+  const isFormData = init.body instanceof FormData;
 
   if (token) headers.set("Authorization", `Bearer ${token}`);
 
-  // Only set JSON content-type if body is JSON (not FormData)
-  const isFormData = init.body instanceof FormData;
   if (init.body && !isFormData && !headers.has("Content-Type")) {
     headers.set("Content-Type", "application/json");
   }
 
-  const url = joinUrl(API_BASE, path);
-
+  const url = buildUrl(path);
   const res = await fetch(url, { ...init, headers });
 
-  // Some endpoints might return empty body
   const text = await res.text();
   let data: any = null;
+
   try {
     data = text ? JSON.parse(text) : null;
   } catch {
-    data = text; // keep raw if not JSON
+    data = text;
   }
 
   if (!res.ok) {
-    const msg =
-      (data && (data.error || data.message)) ||
-      (typeof data === "string" ? data : "") ||
-      `Request failed (${res.status})`;
-    throw new Error(msg);
+    throw new Error(
+      data?.error ||
+        data?.message ||
+        (typeof data === "string" ? data : "") ||
+        `Request failed (${res.status})`
+    );
   }
 
   return data as T;
