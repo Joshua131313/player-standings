@@ -1,8 +1,0 @@
-{
-  "routes": [
-    {
-      "src": "^/api/(.*)",
-      "dest": "https://jwxgzmmqae.us-east-1.awsapprunner.com/$1"
-    }
-  ]
-}
