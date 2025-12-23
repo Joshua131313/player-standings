@@ -18,7 +18,7 @@ export const armies: Army[] = [
   {
     id: "dwarves",
     name: "Dwarves",
-    icon: "../icons/dwarves-icon.png",
+    icon: "/icons/dwarves-icon.png",
     color: "from-amber-300 to-yellow-800",
     totalPicks: 2456,
     wins: 1523,
@@ -33,7 +33,7 @@ export const armies: Army[] = [
   {
     id: "men",
     name: "Men",
-    icon: "../icons/men-icon.png",
+    icon: "/icons/men-icon.png",
     color: "from-sky-400 to-blue-900",
     totalPicks: 2234,
     wins: 1428,
@@ -48,7 +48,7 @@ export const armies: Army[] = [
   {
     id: "elves",
     name: "Elves",
-    icon: "../icons/elves-icon.png",
+    icon: "/icons/elves-icon.png",
     color: "from-emerald-400 to-green-900",
     totalPicks: 1987,
     wins: 1171,
@@ -63,7 +63,7 @@ export const armies: Army[] = [
   {
     id: "isengard",
     name: "Isengard",
-    icon: "../icons/isengard-icon.png",
+    icon: "/icons/isengard-icon.png",
     color: "from-slate-300 to-slate-900",
     totalPicks: 1876,
     wins: 1126,
@@ -78,7 +78,7 @@ export const armies: Army[] = [
   {
     id: "mordor",
     name: "Mordor",
-    icon: "../icons/mordor-icon.png",
+    icon: "/icons/mordor-icon.png",
     color: "from-red-500 to-red-950",
     totalPicks: 1654,
     wins: 926,
@@ -93,7 +93,7 @@ export const armies: Army[] = [
   {
     id: "goblins",
     name: "Goblins",
-    icon: "../icons/goblins-icon.png",
+    icon: "/icons/goblins-icon.png",
     color: "from-orange-400 to-red-800",
     totalPicks: 1432,
     wins: 816,
