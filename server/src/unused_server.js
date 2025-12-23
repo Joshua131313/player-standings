@@ -35,10 +35,10 @@ await connectDB();
 
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
-app.use("/players", playersRouter);
-app.use("/matchups", matchupsRouter);
-app.use("/auth", authRoutes);
-app.use("/admin", adminRoutes);
+app.use("/api/players", playersRouter);
+app.use("/api/matchups", matchupsRouter);
+app.use("/api/auth", authRoutes);
+app.use("/api/admin", adminRoutes);
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
