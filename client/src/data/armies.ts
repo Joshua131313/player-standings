@@ -24,7 +24,7 @@ export const armies: Army[] = [
     wins: 1523,
     losses: 933,
     winRate: 62.0,
-    avgScore: 4.2,
+    avgScore: 2.5,
     popularity: 18.5,
     strongAgainst: ["Mordor"],
     weakAgainst: ["Goblins", "Elves", "Isengard", "Men"],
@@ -39,10 +39,10 @@ export const armies: Army[] = [
     wins: 1428,
     losses: 806,
     winRate: 63.9,
-    avgScore: 4.5,
+    avgScore: 3.8,
     popularity: 16.8,
-    strongAgainst: ["Elves", "Dwarves", "Men", "Isengard"],
-    weakAgainst: ["Frost Guardians", "Ocean Depths"],
+    strongAgainst: ["Elves", "Dwarves", "Men", "Isengard", "Goblins"],
+    weakAgainst: ["Goblins", "Mordor"],
     type: "Good"
   },
   {
@@ -54,10 +54,10 @@ export const armies: Army[] = [
     wins: 1171,
     losses: 816,
     winRate: 58.9,
-    avgScore: 3.9,
+    avgScore: 4.0,
     popularity: 14.9,
-    strongAgainst: ["Phoenix Order", "Storm Knights"],
-    weakAgainst: ["Shadow Legion", "Earth Titans"],
+    strongAgainst: ["Dwarves"],
+    weakAgainst: ["Goblins", "Men"],
     type: "Good"
   },
   {
@@ -69,10 +69,10 @@ export const armies: Army[] = [
     wins: 1126,
     losses: 750,
     winRate: 60.0,
-    avgScore: 4.1,
+    avgScore: 3.1,
     popularity: 14.1,
-    strongAgainst: ["Shadow Legion", "Ocean Depths"],
-    weakAgainst: ["Frost Guardians", "Void Walkers"],
+    strongAgainst: ["Dwarves", "Men", "Elves"],
+    weakAgainst: ["Mordor", "Goblins"],
     type: "Evil"
   },
   {
@@ -84,10 +84,10 @@ export const armies: Army[] = [
     wins: 926,
     losses: 728,
     winRate: 56.0,
-    avgScore: 3.7,
+    avgScore: 4.1,
     popularity: 12.4,
-    strongAgainst: ["Frost Guardians", "Desert Raiders"],
-    weakAgainst: ["Phoenix Order", "Void Walkers"],
+    strongAgainst: ["Goblins", "Mordor", "Isengard", "Dwarves", "Men"],
+    weakAgainst: ["Goblins", "Dwarves", "Men"],
     type: "Evil"
   },
   {
@@ -99,10 +99,10 @@ export const armies: Army[] = [
     wins: 816,
     losses: 616,
     winRate: 57.0,
-    avgScore: 3.8,
+    avgScore: 5,
     popularity: 10.8,
-    strongAgainst: ["Storm Knights", "Earth Titans"],
-    weakAgainst: ["Phoenix Order", "Desert Raiders"],
+    strongAgainst: ["Goblins", "Isengard", "Mordor", "Men", "Dwarves", "Elves"],
+    weakAgainst: ["Men", "Mordor"],
     type: "Evil"
   }
 ];
