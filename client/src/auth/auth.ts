@@ -1,4 +1,4 @@
-const LS_TOKEN = "bfme_admin_token";
+const LS_TOKEN = "adminToken";
 const LS_USER = "bfme_admin_user";
 
 export type AuthUser = { email: string; role: "admin" };
